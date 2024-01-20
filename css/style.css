@@ -1,0 +1,184 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: gill sans, sans-serif;
+    background-color: #E6E6FA;
+    color: black;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.image-gallery img {
+    max-width: 100%; 
+    height: auto; 
+	opacity: 1;
+	transition: transform 0.22s ease, opacity 0.22s ease, filter 0.3s ease;
+}
+
+.image-gallery img:hover {
+    transform: scale(0.975);
+	opacity: 1;
+	filter: brightness(60%);
+
+}
+
+#bio {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column; 
+    text-align: center; 
+    margin-bottom: 0;
+}
+
+.bio-image {
+	display: flex;
+	justify-content: center;
+    width: 200px;
+    height: auto;
+
+}
+
+.bio-image img {
+	transition: transform 0.5s ease;
+
+}
+
+.bio-image img:hover {
+    transform: scale(0.99);
+	opacity: 1;
+	filter: brightness(100%);
+
+}
+
+
+.bio-text {
+	width: 400px;
+	height: 275px;
+	display: flex;
+	justify-content: center;
+	max-width: 400px;
+	margin: auto;
+	margin-bottom: 0px;
+	text-align: justify;
+	text-justify: inner-word;
+	word-wrap: break-word;
+	}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block; 
+}
+
+.image-container img {
+    width: 200px;
+    height: auto;
+    display: block; 
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px; 
+    text-align: center;
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+	pointer-events: none;
+}
+
+.image-container:hover .overlay-text {
+    opacity: 1; 
+}
+
+#gallerypage {
+	margin: 0px;
+	display: flex; 
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
+}
+
+
+#gallerypage img{
+	width: 400px;
+	height:auto;
+}
