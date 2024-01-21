@@ -125,7 +125,7 @@ html {
 
 
 .bio-text {
-	width: 450px;
+	width: auto;
 	height: 300px;
 	display: flex;
 	justify-content: center;
@@ -150,6 +150,7 @@ a:hover {
 	margin: auto;
     position: relative;
     display: inline-block; 
+	justify-content: center;
 }
 
 .image-container img {
