@@ -53,6 +53,7 @@ footer {
 /* Responsive Design */
 @media (max-width: 760px) {
     .container {
+		margin: auto;
         padding: 10px;
     }
 
@@ -67,6 +68,7 @@ html {
 }
 
 .image-gallery {
+	margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center; 
@@ -76,6 +78,7 @@ html {
 }
 
 .image-gallery img {
+	margin: auto;
     max-width: 100%; 
     height: auto; 
 	opacity: 1;
@@ -99,6 +102,7 @@ html {
 }
 
 .bio-image {
+	margin: auto;
 	display: flex;
 	justify-content: center;
     width: 100px;
@@ -107,6 +111,7 @@ html {
 }
 
 .bio-image img {
+	margin: auto;
 	transition: transform 0.5s ease;
 
 }
@@ -142,11 +147,13 @@ a:hover {
 }
 
 .image-container {
+	margin: auto;
     position: relative;
     display: inline-block; 
 }
 
 .image-container img {
+	margin: auto;
     width: 400px;
     height: auto;
     display: block; 
