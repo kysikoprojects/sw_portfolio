@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
     padding: 20px;
 }
@@ -100,7 +100,7 @@ html {
 .bio-image {
 	display: flex;
 	justify-content: center;
-    width: 200px;
+    width: 175px;
     height: auto;
 
 }
@@ -119,8 +119,8 @@ html {
 
 
 .bio-text {
-	width: 400px;
-	height: 275px;
+	width: 450px;
+	height: 300px;
 	display: flex;
 	justify-content: center;
 	max-width: 400px;
@@ -179,6 +179,6 @@ a:hover {
 
 
 #gallerypage img{
-	width: 400px;
+	width: 375px;
 	height:auto;
 }
