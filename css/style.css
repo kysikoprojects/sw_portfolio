@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: gill sans, sans-serif;
+    font-family: timesnewroman, sans-serif;
     background-color: #E6E6FA;
     color: black;
 }
@@ -51,7 +51,7 @@ footer {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 760px) {
     .container {
         padding: 10px;
     }
@@ -71,7 +71,8 @@ html {
     flex-wrap: wrap;
     justify-content: center; 
     align-items: center; 
-    gap: 10px; 
+    gap: 5px; 
+
 }
 
 .image-gallery img {
@@ -100,7 +101,7 @@ html {
 .bio-image {
 	display: flex;
 	justify-content: center;
-    width: 175px;
+    width: 100px;
     height: auto;
 
 }
@@ -146,7 +147,7 @@ a:hover {
 }
 
 .image-container img {
-    width: 200px;
+    width: 400px;
     height: auto;
     display: block; 
 }
