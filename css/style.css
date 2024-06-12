@@ -202,17 +202,17 @@ a:hover {
 
 .video-container iframe {
     width: 100vw;
-	max-height: 40vw;
-	min-height: 40vw;
+	max-height: 50vw;
+	min-height: 50vw;
     display: block; 
-	margin-bottom: 1px;
+	margin-bottom: 5px;
 
 }
 
 @media (max-width: 600px) { /* Adjust the breakpoint as needed */
     .video-container iframe {
-        max-height: 60vw;  /* Increase max-height for better aspect ratio control */
-        min-height: 60vw;  /* Increase min-height accordingly */
-        margin-bottom: 1px; /* Reduce the margin-bottom to decrease the gap */
+        max-height: 50vw;  /* Increase max-height for better aspect ratio control */
+        min-height: 50vw;  /* Increase min-height accordingly */
+        margin-bottom: 5px; /* Reduce the margin-bottom to decrease the gap */
     }
 }
