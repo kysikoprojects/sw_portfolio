@@ -46,7 +46,6 @@ section {
 
 footer {
     text-align: center;
-    margin-top: 50px;
     padding: 20px 0;
 }
 
@@ -190,4 +189,20 @@ a:hover {
 #gallerypage img{
 	width: 375px;
 	height:auto;
+}
+
+.video-container {
+	display: flex;
+	position: relative;
+	justify-content: center;
+
+}
+
+.video-container iframe {
+	display: block;
+	width: 50vw; 
+	height: 20vw;
+	padding: 5px;
+
+
 }
