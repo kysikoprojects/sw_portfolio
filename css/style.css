@@ -200,9 +200,9 @@ a:hover {
 
 .video-container iframe {
 	display: block;
-	padding: 0px;
-	min-width: 70vw;
-	min-height: 70vw;
+	padding: 5px;
+	min-width: 80vw;
+	min-height: 80vw;
 
 
 }
