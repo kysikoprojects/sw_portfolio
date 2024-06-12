@@ -208,3 +208,11 @@ a:hover {
 	margin-bottom: 1px;
 
 }
+
+@media (max-width: 600px) { /* Adjust the breakpoint as needed */
+    .video-container iframe {
+        max-height: 60vw;  /* Increase max-height for better aspect ratio control */
+        min-height: 60vw;  /* Increase min-height accordingly */
+        margin-bottom: 1px; /* Reduce the margin-bottom to decrease the gap */
+    }
+}
