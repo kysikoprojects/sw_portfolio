@@ -195,12 +195,12 @@ a:hover {
 	display: flex;
 	position: relative;
 	justify-content: center;
+	padding: 0;
 
 }
 
 .video-container iframe {
-	display: block;
-	padding: 5px;
+	display: block;	
 	min-width: 80vw;
 	min-height: 80vw;
 
