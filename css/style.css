@@ -102,3 +102,16 @@ a:hover{ text-decoration:underline; }
   .audio-bar{ grid-template-columns:1fr; gap:10px; }
   .ab-right{ justify-self:end; }
 }
+
+/* Mobile-only: center album covers without changing desktop layout */
+@media (max-width: 760px) {
+  .image-container { text-align: center; }         /* doesn't affect other text */
+  .image-container img {
+    display: block;
+    margin: 0 auto;                                /* center the image */
+    width: 100%;                                   /* shrink to fit phone width */
+    max-width: 400px;                              /* keep your original cap */
+    height: auto;
+  }
+}
+
