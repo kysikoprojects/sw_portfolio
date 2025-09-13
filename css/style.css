@@ -105,13 +105,13 @@ a:hover{ text-decoration:underline; }
 
 /* Mobile-only: center album covers without changing desktop layout */
 @media (max-width: 760px) {
-  .image-container { text-align: center; }         /* doesn't affect other text */
   .image-container img {
-    display: block;
-    margin: 0 auto;                                /* center the image */
-    width: 100%;                                   /* shrink to fit phone width */
-    max-width: 400px;                              /* keep your original cap */
+    width: 100%;        /* scale to screen */
+    max-width: 400px;   /* never exceed original size */
     height: auto;
+    display: block;
+    margin: 0 auto;
   }
 }
+
 
