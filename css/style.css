@@ -1,3 +1,92 @@
+<<<<<<< HEAD
+/* Base theme */
+body{ margin:0; padding:0; font-family:timesnewroman, sans-serif; background:#E6E6FA; color:#000; }
+.container{ max-width:700px; margin:auto; padding:20px; }
+header{ text-align:center; margin-bottom:50px; }
+nav ul{ list-style:none; padding:0; }
+nav ul li{ display:inline; margin:0 10px; }
+nav a{ text-decoration:none; color:#000; }
+h2{ text-align:center; margin-top:40px; margin-bottom:20px; }
+section{ margin-bottom:50px; }
+footer{ text-align:center; padding:20px 0; }
+
+/* Responsive */
+@media (max-width:760px){
+  .container{ margin:auto; padding:10px; }
+  nav ul li{ display:block; margin:10px 0; }
+}
+html{ scroll-behavior:smooth; }
+
+/* Gallery */
+.image-gallery{ margin:auto; display:flex; flex-wrap:wrap; justify-content:center; flex-direction:column; align-items:center; gap:5px; }
+.image-gallery img{ margin:auto; max-width:100%; height:auto; opacity:1; transition:transform .22s ease, opacity .22s ease, filter .3s ease; }
+.image-gallery img:hover{ transform:scale(.975); opacity:1; filter:brightness(60%); }
+
+/* Bio */
+#bio{ display:flex; justify-content:center; align-items:center; flex-direction:column; text-align:center; margin-bottom:0; }
+.bio-image{ margin:auto; display:flex; justify-content:center; width:400px; height:auto; }
+.bio-image img{ margin:auto; width:400px; height:auto; transition:transform .5s ease; }
+.bio-image img:hover{ transform:scale(.99); opacity:1; filter:brightness(100%); }
+
+.bio-text{ width:auto; height:300px; display:flex; justify-content:center; max-width:400px; margin:auto; margin-bottom:0; text-align:justify; text-justify:inner-word; word-wrap:break-word; }
+
+a{ color:#000; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+/* Cover + hover title */
+.image-container{ margin:auto; position:relative; display:inline-block; justify-content:center; }
+.image-container img{ margin:auto; width:400px; height:auto; display:block; }
+.overlay-text{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; font-size:20px; text-align:center; opacity:0; transition:opacity .3s ease; pointer-events:none; }
+.image-container:hover .overlay-text{ opacity:1; }
+
+/* Gallery page */
+#gallerypage{ margin:0; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px; }
+#gallerypage img{ width:375px; height:auto; }
+
+/* Video embeds */
+.video-container{ display:flex; flex-direction:column; position:relative; justify-content:center; padding:0; }
+.video-container iframe{ width:100vw; max-height:50vw; min-height:50vw; display:block; margin-bottom:5px; }
+@media (max-width:600px){ .video-container iframe{ max-height:60vw; min-height:60vw; margin-bottom:10px; } }
+
+/* ===== Sticky Audio Bar (dark, centered, simple) ===== */
+.audio-bar{
+  /* theme vars (JS updates from album cover) */
+  --bar-bg:#1c1c1f; --bar-text:#eee; --bar-border:#2a2a2f; --accent:#E6E6FA;
+  position:fixed; left:0; right:0; bottom:0;
+  display:grid; grid-template-columns:1fr minmax(320px,640px) 1fr;
+  align-items:center; gap:16px; padding:12px 14px;
+  background:var(--bar-bg); color:var(--bar-text); border-top:1px solid var(--bar-border);
+  backdrop-filter:blur(10px); z-index:9999;
+  transform:translateY(100%); opacity:0; transition:transform 240ms ease, opacity 240ms ease;
+}
+.audio-bar.open{ transform:translateY(0); opacity:1; }
+.audio-bar[hidden]{ display:grid !important; }
+
+.ab-left{ display:grid; grid-template-columns:auto 1fr; align-items:center; gap:10px; justify-self:start; }
+.ab-center{ display:grid; gap:8px; justify-items:center; }
+.ab-right{ display:grid; align-items:center; justify-self:end; }
+
+.ab-title{ font-weight:700; line-height:1.1; letter-spacing:.2px; }
+.ab-artist{ opacity:.85; font-size:.95rem; }
+.ab-sub{ opacity:.7; font-size:.9rem; }
+
+/* Buttons */
+.ab-btn{ appearance:none; border:1px solid #666; cursor:pointer; background:transparent; color:#eee; padding:6px 10px; border-radius:4px; line-height:1; font-weight:500; box-shadow:none; }
+.ab-btn:hover{ background:#2a2a2f; }
+.ab-download{ text-decoration:none; font-size:18px; line-height:1; padding:4px 10px; }
+
+/* Controls & seek */
+.ab-controls{ display:inline-grid; grid-auto-flow:column; gap:8px; align-items:center; justify-content:center; }
+.ab-times{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:10px; font-variant-numeric:tabular-nums; width:100%; }
+.ab-seek{ width:100%; accent-color:var(--accent); }
+
+.ab-play[data-state="playing"]{ background:#242429; }
+
+@media (max-width:720px){
+  .audio-bar{ grid-template-columns:1fr; gap:10px; }
+  .ab-right{ justify-self:end; }
+}
+=======
 
 
 body {
@@ -217,3 +306,4 @@ a:hover {
         margin-bottom: 10px; /* Reduce the margin-bottom to decrease the gap */
     }
 }
+>>>>>>> parent of c73b76d (audio bar)
