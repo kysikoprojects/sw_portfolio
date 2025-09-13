@@ -1,60 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeremy Alain Gallery</title>
-    <link rel="stylesheet" href="css/style.css">
-	<link rel="icon" type="image/png" href="images/icons/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery - Still Winters / Kysiko</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" type="image/png" href="images/icons/favicon.png">
 </head>
-
 <body>
+  <div class="container">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html#still-winters">Still Winters</a></li>
+          <li><a href="index.html#kysiko">Kysiko</a></li>
+          <li><a href="musicforpicture.html">Music For Picture</a></li>
+        </ul>
+      </nav>
+    </header>
 
-	        <header>
-            <nav>
-                <ul>
-                    <li><a href="index.html">home</a></li>
-                </ul>
-            </nav>
-        </header>
-		
-		
-	 <section id="gallerypage">
-	 
+    <main>
+      <section id="gallerypage">
+        <div>
+          <h2>Gallery</h2>
+          <div id="gallery"></div>
+        </div>
+      </section>
+    </main>
 
-		<div>
-			<h2>Gallery</h2>
-		
-			
-			
-				<img src="images/gallery/sw_photo_008.jpg" alt="swphoto_008" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_007.jpg" alt="swphoto_007" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_006.jpg" alt="swphoto_006" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_005.jpg" alt="swphoto_005" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_004.jpg" alt="swphoto_004" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_003.jpg" alt="swphoto_003" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_002.jpg" alt="swphoto_002" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_001.jpg" alt="swphoto_001" width="200" height="auto"><br>
-				<img src="images/gallery/sw_photo_000.jpg" alt="swphoto_000" width="200" height="auto"><br>
+    <footer>
+      <h5><b>CONTACT</b></h5>
+      <p>stillwintersproject@gmail.com</p>
+      <p>kysikoprojects@gmail.com</p>
+      <p>originalscorebyjeremyalain@gmail.com</p>
+      <p>
+        <img src="images/icons/insta_icon_b.png" alt="instaicon" width="20" style="vertical-align:middle;"/>
+        <a href="https://www.instagram.com/stillwinters/">@stillwinters</a>
+        |
+        <a href="https://www.instagram.com/kysiko">@kysiko</a>
+      </p>
+    </footer>
+  </div>
 
-		</div>
-	</section>
-		<div>
-			<footer>
-			<h5><b>CONTACT</b></h5>
-				<p>stillwintersproject@gmail.com</p>
-				<p>kysikoprojects@gmail.com</p>
-				<p>
-				<!--	<img src="images/icons/insta_icon_b.png" alt="instaicon" width="5px" align="center"> -->
-					<a href="https://www.instagram.com/stillwinters/">@stillwinters</a>
-					|
-					<a href="https://www.instagram.com/kysiko">@kysiko</a>
-				</p>
-				<p></p>
-        </footer>			
-		</div>
+  <!-- Script to auto-generate gallery -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const gallery = document.getElementById("gallery");
 
+    // Adjust these values as needed
+    const folder = "images/gallery/";
+    const count = 11;   // number of images you currently have
+    const ext = ".jpg"; // change if your files are .png, etc.
 
-    <script src="js/script.js"></script>
+    for (let i = 0; i < count; i++) {
+      const num = String(i).padStart(3, "0"); // creates 000, 001, 002 ...
+      const img = document.createElement("img");
+      img.src = `${folder}sw_photo_${num}${ext}`;
+      img.alt = `sw_photo_${num}`;
+      img.width = 375; // matches your CSS
+      img.loading = "lazy";
+      gallery.appendChild(img);
+    }
+  });
+  </script>
 </body>
 </html>
