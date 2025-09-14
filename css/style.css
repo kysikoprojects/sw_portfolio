@@ -140,3 +140,25 @@ a:hover{ text-decoration:underline; }
   .audio-bar{ grid-template-columns:1fr; gap:10px; }
   .ab-right{ justify-self:end; }
 }
+
+
+/* Hard-normalize all cover/gallery/bio images */
+.bio-image,
+.image-container,
+.image-gallery,
+#gallerypage,
+#gallery {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.bio-image img,
+.image-container img,
+.image-gallery img,
+#gallerypage img,
+#gallery img {
+  display: block;
+  width: 100% !important;  /* beat any width="200" in HTML */
+  height: auto !important; /* preserve aspect ratio */
+}
