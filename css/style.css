@@ -98,17 +98,13 @@ a:hover{ text-decoration:underline; }
 
 .ab-play[data-state="playing"]{ background:#242429; }
 
-@media (max-width:720px){
-  .audio-bar{ grid-template-columns:1fr; gap:10px; }
-  .ab-right{ justify-self:end; }
-}
 
 /* Mobile-only: unify image sizing */
 @media (max-width: 760px) {
   .image-container img,
   .image-gallery img {
     display: block;
-    margin: 0 auto;
+    margin: 0px;
     width: 100%;        /* take available width */
     max-width: 400px;   /* cap so they don't blow up */
     height: auto;
