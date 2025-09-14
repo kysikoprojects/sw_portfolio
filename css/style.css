@@ -103,14 +103,15 @@ a:hover{ text-decoration:underline; }
   .ab-right{ justify-self:end; }
 }
 
-/* Mobile-only: center album covers without changing desktop layout */
+/* Mobile-only: unify image sizing */
 @media (max-width: 760px) {
-  .image-container img {
-    width: 100%;        /* scale to screen */
-    max-width: 400px;   /* never exceed original size */
-    height: auto;
+  .image-container img,
+  .image-gallery img {
     display: block;
     margin: 0 auto;
+    width: 100%;        /* take available width */
+    max-width: 400px;   /* cap so they don't blow up */
+    height: auto;
   }
 }
 
