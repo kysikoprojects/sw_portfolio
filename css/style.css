@@ -32,6 +32,7 @@ html{ scroll-behavior:smooth; }
   margin:0 auto;      /* center all images */
   width:100%;         /* fill container width */
   max-width:400px;    /* consistent cap everywhere */
+  min-width: 400px
   height:auto;        /* keep aspect ratio */
 }
 
