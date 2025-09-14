@@ -28,12 +28,12 @@ html{ scroll-behavior:smooth; }
 .image-gallery img,
 #gallerypage img,
 #gallery img {
-  display:block;
-  margin:0 auto;      /* center all images */
-  width:100%;         /* fill container width */
-  max-width:400px;    /* consistent cap everywhere */
-  min-width: 400px
-  height:auto;        /* keep aspect ratio */
+  display: block;
+  margin: 0 auto;      /* center all images */
+  width: 100%;         /* scale to container width */
+  max-width: 400px;    /* consistent cap everywhere */
+  height: auto;        /* maintain aspect ratio */
+  box-sizing: border-box;
 }
 
 /* =========================
