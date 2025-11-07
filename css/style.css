@@ -643,3 +643,17 @@ body.player-open {
   background: rgba(255,255,255,0.25);
 }
 
+.audio-bar.floating-player .ab-title,
+.audio-bar.floating-player .ab-artist,
+.audio-bar.floating-player .ab-sub {
+  color: #fff !important;
+}
+
+.audio-bar.floating-player .ab-cover {
+  width: min(95%, 480px);
+  height: auto;
+  max-height: 80vh; /* scale nicely on mobile */
+  border-radius: 1.25rem;
+  object-fit: contain;  /* ensures full image, no crop */
+  box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+}
