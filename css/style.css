@@ -514,3 +514,132 @@ body.player-open {
   cursor: pointer;
 }
 
+
+/* ultra-large album cover dark player */
+.audio-bar.floating-player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, 96vw);
+  background: rgba(10, 10, 12, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+  z-index: 9999;
+  padding: 2rem 1.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  color: #fff;
+}
+
+/* cover dominates the view */
+.audio-bar.floating-player .ab-cover {
+  width: min(420px, 90vw);
+  height: min(420px, 90vw);
+  border-radius: 1.25rem;
+  background-size: contain;   /* show full image, no crop */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255,255,255,0.02);
+}
+
+/* subtle typography and centered layout */
+.audio-bar.floating-player .ab-left {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.audio-bar.floating-player .ab-meta {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  align-items: center;
+}
+
+.audio-bar.floating-player .ab-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.audio-bar.floating-player .ab-artist,
+.audio-bar.floating-player .ab-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: .85rem;
+}
+
+/* centered playback controls */
+.audio-bar.floating-player .ab-center {
+  width: 100%;
+}
+
+.audio-bar.floating-player .ab-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: .4rem;
+}
+
+.audio-bar.floating-player .ab-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.audio-bar.floating-player .ab-times {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  font-size: .8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.audio-bar.floating-player .ab-seek {
+  width: 82%;
+}
+
+/* bandcamp link */
+.audio-bar.floating-player .ab-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.audio-bar.floating-player .ab-download {
+  font-size: .75rem;
+  letter-spacing: .04em;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* close button */
+.audio-bar.floating-player .ab-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.audio-bar.floating-player .ab-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
