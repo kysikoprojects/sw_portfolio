@@ -171,6 +171,7 @@
 
       <!-- Sticky audio bar -->
       <div id="audioBar" class="audio-bar" aria-live="polite" hidden>
+        <div class="ab-cover" id="abCover" aria-hidden="true"></div>
         <div class="ab-left">
           <button class="ab-btn ab-close" aria-label="Close">×</button>
           <div class="ab-meta">
@@ -268,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const fmt = s => { if(!isFinite(s)) return '0:00'; s = Math.max(0, Math.floor(s)); const m=Math.floor(s/60), sec=s%60; return `${m}:${String(sec).padStart(2,'0')}`; };
   const openBar = () => { bar.hidden = false; requestAnimationFrame(()=>bar.classList.add('open')); };
-  const closeBar= () => { bar.classList.remove('open'); audio.pause(); btnPl.textContent='▶︎'; btnPl.removeAttribute('data-state'); setTimeout(()=>bar.hidden=true,250); };
+  const closeBar= () => { bar.classList.remove('open'); bar.classList.remove('floating-player'); document.body.classList.remove('player-open'); audio.pause(); btnPl.textContent='▶︎'; btnPl.removeAttribute('data-state'); setTimeout(()=>bar.hidden=true,250); };
 
   const load = (n, autoplay=true) => {
     idx = n;
@@ -328,7 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
     albumArtist = data.artist || '';
     albumBandcamp = data.bandcamp || '';
 
-    artistEl.textContent = albumArtist || '';
     if (dl && albumBandcamp) {
       dl.href = albumBandcamp;
       dl.removeAttribute('download');
@@ -337,15 +337,20 @@ document.addEventListener('DOMContentLoaded', () => {
       dl.title = 'Open on Bandcamp';
     }
 
-    // Log so you can see exactly what paths are being used
-    console.log('Playlist loaded:', { albumTitle, albumArtist, tracks });
+    const img = aEl.querySelector('img');
+    if (img) {
+      themeBarFromImage(img, bar);
+      const cov = document.getElementById('abCover');
+      if (cov) cov.style.backgroundImage = `url(${img.src})`;
+    }
 
-    const img = aEl.querySelector('img'); if (img) themeBarFromImage(img, bar);
     if (!tracks.length) return;
-    openBar(); load(0);
+    openBar();
+    bar.classList.add('floating-player');
+    document.body.classList.add('player-open');
+    load(0);
   };
-
-  /* delegated click */
+    /* delegated click */
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-playlist-el]');
     if (!a) return;

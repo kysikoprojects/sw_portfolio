@@ -162,3 +162,53 @@ a:hover{ text-decoration:underline; }
   width: 100% !important;  /* beat any width="200" in HTML */
   height: auto !important; /* preserve aspect ratio */
 }
+
+/* ===== Floating / centered audio player ===== */
+body.player-open {
+  overflow: hidden;
+}
+
+.audio-bar.floating-player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(460px, 92vw);
+  background: rgba(18, 18, 22, 0.95);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1.4rem;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  z-index: 9999;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.audio-bar.floating-player .ab-cover {
+  width: 180px;
+  height: 180px;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto;
+}
+
+.audio-bar.floating-player .ab-left,
+.audio-bar.floating-player .ab-center,
+.audio-bar.floating-player .ab-right {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.audio-bar.floating-player .ab-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+}
+
+.audio-bar.floating-player .ab-times {
+  width: 100%;
+  gap: .5rem;
+  justify-content: center;
+}
