@@ -270,3 +270,129 @@ body.player-open {
   cursor: pointer;
 }
 
+
+/* minimal white floating player */
+.audio-bar.floating-player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(440px, 94vw);
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 0;              /* no rounded edges */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  z-index: 9999;
+  padding: 1.5rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #111;
+}
+
+/* bigger cover */
+.audio-bar.floating-player .ab-cover {
+  width: min(320px, 82vw);
+  height: min(320px, 82vw);
+  border-radius: 0;              /* square cover */
+  background-size: cover;
+  background-position: center;
+  margin-bottom: .5rem;
+}
+
+/* center text */
+.audio-bar.floating-player .ab-left {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.audio-bar.floating-player .ab-meta {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  align-items: center;
+}
+
+.audio-bar.floating-player .ab-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #111;
+}
+
+.audio-bar.floating-player .ab-artist,
+.audio-bar.floating-player .ab-sub {
+  color: #666;
+  font-size: .8rem;
+}
+
+/* controls */
+.audio-bar.floating-player .ab-center {
+  width: 100%;
+}
+
+.audio-bar.floating-player .ab-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: .35rem;
+}
+
+.audio-bar.floating-player .ab-btn {
+  background: none;
+  border: none;
+  color: #111;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.audio-bar.floating-player .ab-times {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  font-size: .75rem;
+  color: #888;
+}
+
+.audio-bar.floating-player .ab-seek {
+  width: 80%;
+}
+
+/* download button plain text, centered */
+.audio-bar.floating-player .ab-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.audio-bar.floating-player .ab-download {
+  font-size: .7rem;
+  letter-spacing: .04em;
+  background: none;
+  border: 1px solid rgba(0,0,0,.08);
+  padding: .4rem .7rem;
+  border-radius: 999px;
+  color: #333;
+  text-decoration: none;
+}
+
+/* close button square, grey */
+.audio-bar.floating-player .ab-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f3f3f3;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  cursor: pointer;
+  line-height: 1;
+}
+
