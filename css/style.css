@@ -657,3 +657,74 @@ body.player-open {
   object-fit: contain;  /* ensures full image, no crop */
   box-shadow: 0 4px 40px rgba(0,0,0,0.5);
 }
+
+/* ===== mobile player layout ===== */
+@media (max-width: 700px) {
+  .audio-bar.floating-player {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    padding: 1.1rem 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: flex-start;
+  }
+
+  /* make the cover big and centered */
+  .audio-bar.floating-player .ab-cover {
+    width: min(88vw, 460px);
+    height: auto;
+    max-height: 50vh;
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;    /* if it's an <img> */
+    background-size: contain; /* if it's still a background div */
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* center text */
+  .audio-bar.floating-player .ab-left,
+  .audio-bar.floating-player .ab-meta {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .audio-bar.floating-player .ab-center {
+    width: 100%;
+  }
+
+  .audio-bar.floating-player .ab-times {
+    justify-content: center;
+  }
+
+  .audio-bar.floating-player .ab-seek {
+    width: 100%;
+  }
+
+  /* close button stays top-right */
+  .audio-bar.floating-player .ab-close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* keep Ko-fi above the mobile player */
+#kofi-widget-overlay {
+  bottom: 90px !important;
+}
+
+.audio-bar.floating-player .ab-cover {
+  width: min(95%, 480px);
+  height: auto;
+  max-height: 80vh;
+  border-radius: 1.25rem;
+  object-fit: contain;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+}

@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const audio   = document.getElementById("abAudio");
   const sub     = document.getElementById("abSub");
   const coverEl = document.getElementById("abCover"); // <-- now an <img>
+  const cov = document.getElementById('abCover');
+if (cov) cov.src = img.src;
+
 
   // only do this if the main inline player script already defined playJsonAlbum
   const origPlay = window.playJsonAlbum;
@@ -54,3 +57,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+

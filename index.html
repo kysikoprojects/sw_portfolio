@@ -187,17 +187,20 @@
 	  
 	  
 
-      <!-- Sticky audio bar -->
-      <div id="audioBar" class="audio-bar" aria-live="polite" hidden>
-        <div class="ab-cover" id="abCover" alt="Album Cover"/</div>
-        <div class="ab-left">
-          <button class="ab-btn ab-close" aria-label="Close">×</button>
-          <div class="ab-meta">
-            <div class="ab-title" id="abTitle">—</div>
-            <div class="ab-artist" id="abArtist">—</div>
-            <div class="ab-sub" id="abSub">—</div>
-          </div>
-        </div>
+		<!-- Sticky audio bar -->
+		<div id="audioBar" class="audio-bar" aria-live="polite" hidden>
+		  <!-- Changed from a background div to an actual <img> -->
+		  <img class="ab-cover" id="abCover" alt="Album cover" />
+
+		  <div class="ab-left">
+			<button class="ab-btn ab-close" aria-label="Close">×</button>
+			<div class="ab-meta">
+			  <div class="ab-title" id="abTitle">—</div>
+			  <div class="ab-artist" id="abArtist">—</div>
+			  <div class="ab-sub" id="abSub">—</div>
+			</div>
+		  </div>
+			
 
         <div class="ab-center">
           <div class="ab-controls">
