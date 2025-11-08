@@ -12,40 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // === Audio player helper patch ===
-  const audio   = document.getElementById("abAudio");
-  const sub     = document.getElementById("abSub");
-  const coverEl = document.getElementById("abCover"); // <-- now an <img>
-  const cov = document.getElementById('abCover');
-if (cov) cov.src = img.src;
-
-
-  // only do this if the main inline player script already defined playJsonAlbum
-  const origPlay = window.playJsonAlbum;
-
-  if (origPlay) {
-    // wrap the original function
-    window.playJsonAlbum = function (aEl) {
-      // run the original logic (opens bar, sets tracks, etc.)
-      origPlay(aEl);
-
-      // 1) set the album cover src based on the image that was clicked
-      if (coverEl && aEl) {
-        const img = aEl.querySelector("img");
-        if (img && img.src) {
-          coverEl.src = img.src;
-        }
-      }
-
-      // 2) extra safety: if the inline script put tracks on window, re-encode first one
-      if (audio && window.tracks && window.tracks.length > 0) {
-        const first = window.tracks[0];
-        audio.src = encodeURI(first).replace(/#/g, "%23");
-      }
-    };
-  }
-
-  // global audio error handler
+  // extra audio error guard (inline script does most of the work)
+  const audio = document.getElementById("abAudio");
+  const sub   = document.getElementById("abSub");
   if (audio) {
     audio.addEventListener("error", () => {
       const src = audio.currentSrc || audio.src;
@@ -57,5 +26,3 @@ if (cov) cov.src = img.src;
     });
   }
 });
-
-

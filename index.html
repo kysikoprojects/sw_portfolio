@@ -37,15 +37,14 @@
         <h2><a href="https://ffm.bio/stillwinters" target="_blank" rel="noopener">Still Winters</a></h2>
 
         <div class="image-gallery">
-		
           <!-- Serenity Monster (Album) -->
           <div class="image-container">
             <a href="#" data-playlist-el="playlist-serenity-monster">
               <img src="images/sw/sm_cover.jpeg" alt="Serenity Monster"/>
               <div class="overlay-text">Serenity Monster</div>
             </a>
-          </div>		
-		
+          </div>
+
           <!-- Forest Green (single) -->
           <div class="image-container">
             <a href="#" data-playlist-el="playlist-forest-green">
@@ -142,24 +141,23 @@
         </div>
       </section>
 
-      <!-- Inline playlists (Bandcamp only; no zip anywhere) -->
-	  
-		<script type="application/json" id="playlist-serenity-monster">
-		{
-		  "title": "Serenity Monster",
-		  "artist": "Still Winters",
-		  "bandcamp": "https://stillwinters.bandcamp.com/album/serenity-monster",
-		  "tracks": [
-			"audio/Serenity Monster/1. Nostalgia, Abstract.mp3",
-			"audio/Serenity Monster/2. Septemberemberember (part I).mp3",
-			"audio/Serenity Monster/3. Septemberemberember (part II).mp3",
-			"audio/Serenity Monster/4. The Lavender Forest.mp3",
-			"audio/Serenity Monster/5. Serenity Monster.mp3"
-		  ]
-		}
-		</script>
-	  
-	  <script type="application/json" id="playlist-forest-green">
+      <!-- Inline playlists -->
+      <script type="application/json" id="playlist-serenity-monster">
+      {
+        "title": "Serenity Monster",
+        "artist": "Still Winters",
+        "bandcamp": "https://stillwinters.bandcamp.com/album/serenity-monster",
+        "tracks": [
+          "audio/Serenity Monster/1. Nostalgia, Abstract.mp3",
+          "audio/Serenity Monster/2. Septemberemberember (part I).mp3",
+          "audio/Serenity Monster/3. Septemberemberember (part II).mp3",
+          "audio/Serenity Monster/4. The Lavender Forest.mp3",
+          "audio/Serenity Monster/5. Serenity Monster.mp3"
+        ]
+      }
+      </script>
+
+      <script type="application/json" id="playlist-forest-green">
       {
         "title": "Forest Green",
         "artist": "Still Winters",
@@ -184,29 +182,25 @@
         ]
       }
       </script>
-	  
-	  
 
-		<!-- Sticky audio bar -->
-		<div id="audioBar" class="audio-bar" aria-live="polite" hidden>
-		  <!-- Changed from a background div to an actual <img> -->
-		  <img class="ab-cover" id="abCover" alt="Album cover" />
+      <!-- Sticky audio bar -->
+      <div id="audioBar" class="audio-bar" aria-live="polite" hidden>
+        <img class="ab-cover" id="abCover" alt="Album cover" />
 
-		  <div class="ab-left">
-			<button class="ab-btn ab-close" aria-label="Close">×</button>
-			<div class="ab-meta">
-			  <div class="ab-title" id="abTitle">—</div>
-			  <div class="ab-artist" id="abArtist">—</div>
-			  <div class="ab-sub" id="abSub">—</div>
-			</div>
-		  </div>
-			
+        <div class="ab-left">
+          <button class="ab-btn ab-close" aria-label="Close">×</button>
+          <div class="ab-meta">
+            <div class="ab-title" id="abTitle">—</div>
+            <div class="ab-artist" id="abArtist">—</div>
+            <div class="ab-sub" id="abSub">—</div>
+          </div>
+        </div>
 
         <div class="ab-center">
           <div class="ab-controls">
-            <button class="ab-btn ab-prev" aria-label="Previous">|<</button>
-            <button class="ab-btn ab-play" aria-label="Play/Pause">▶︎</button>
-            <button class="ab-btn ab-next" aria-label="Next">>|</button>
+            <button class="ab-btn ab-prev" aria-label="Previous">⟨</button>
+            <button class="ab-btn ab-play" aria-label="Play/Pause"></button>
+            <button class="ab-btn ab-next" aria-label="Next">⟩</button>
           </div>
           <div class="ab-times">
             <span id="abCurrent">0:00</span>
@@ -216,7 +210,6 @@
         </div>
 
         <div class="ab-right">
-          <!-- Arrow opens Bandcamp only -->
           <a id="abDownload" class="ab-btn ab-download" href="#" title="Open on Bandcamp">download</a>
         </div>
 
@@ -238,160 +231,191 @@
     </footer>
   </div>
 
-  <!-- Player script -->
+  <!-- main player script (inline) -->
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  /* ==== Auto-color from cover ==== */
-  function srgb_to_linear(c){ c/=255; return (c<=0.04045)? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
-  function relative_luminance(r,g,b){ const R=srgb_to_linear(r),G=srgb_to_linear(g),B=srgb_to_linear(b); return 0.2126*R+0.7152*G+0.0722*B; }
-  function computeAccentFromRGB(r,g,b){
-    const bg = `rgb(${Math.round(r*0.18)}, ${Math.round(g*0.18)}, ${Math.round(b*0.18)})`;
-    const border = `rgba(${Math.round(r*0.35)}, ${Math.round(g*0.35)}, ${Math.round(b*0.35)}, 1)`;
-    const acc = `rgb(${Math.min(255, Math.round(r*0.8+40))}, ${Math.min(255, Math.round(g*0.8+40))}, ${Math.min(255, Math.round(b*0.8+40))})`;
-    return { bg, border, acc };
-  }
-  function sampleImageAverage(imgEl){
-    try{
-      const w=32,h=32,c=document.createElement('canvas'); c.width=w; c.height=h;
-      const ctx=c.getContext('2d'); ctx.drawImage(imgEl,0,0,w,h);
-      const data=ctx.getImageData(0,0,w,h).data; let r=0,g=0,b=0,count=0;
-      for(let i=0;i<data.length;i+=4){ const A=data[i+3]; if(A<8) continue; r+=data[i]; g+=data[i+1]; b+=data[i+2]; count++; }
-      if(!count) return null; return { r:Math.round(r/count), g:Math.round(g/count), b:Math.round(b/count) };
-    }catch(_){ return null; }
-  }
-  function themeBarFromImage(imgEl, barEl){
-    const avg = sampleImageAverage(imgEl); if(!avg) return;
-    const lum = relative_luminance(avg.r, avg.g, avg.b);
-    const { bg, border, acc } = computeAccentFromRGB(avg.r, avg.g, avg.b);
-    const tooLight = lum > 0.6;
-    barEl.style.setProperty('--bar-bg', tooLight ? '#1c1c1f' : bg);
-    barEl.style.setProperty('--bar-border', tooLight ? '#2a2a2f' : border);
-    barEl.style.setProperty('--bar-text', '#eee');
-    barEl.style.setProperty('--accent', acc);
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    /* elements */
+    const bar   = document.getElementById('audioBar');
+    const audio = document.getElementById('abAudio');
+    const btnX  = bar.querySelector('.ab-close');
+    const btnPl = bar.querySelector('.ab-play');
+    const btnPr = bar.querySelector('.ab-prev');
+    const btnNx = bar.querySelector('.ab-next');
+    const seek  = document.getElementById('abSeek');
+    const tCur  = document.getElementById('abCurrent');
+    const tDur  = document.getElementById('abDuration');
+    const title = document.getElementById('abTitle');
+    const artistEl = document.getElementById('abArtist');
+    const sub   = document.getElementById('abSub');
+    const dl    = document.getElementById('abDownload');
+    const cover = document.getElementById('abCover');
 
-  /* ==== Elements ==== */
-  const bar   = document.getElementById('audioBar');
-  const audio = document.getElementById('abAudio');
-  const btnX  = bar.querySelector('.ab-close');
-  const btnPl = bar.querySelector('.ab-play');
-  const btnPr = bar.querySelector('.ab-prev');
-  const btnNx = bar.querySelector('.ab-next');
-  const seek  = document.getElementById('abSeek');
-  const tCur  = document.getElementById('abCurrent');
-  const tDur  = document.getElementById('abDuration');
-  const title = document.getElementById('abTitle');
-  const artistEl = document.getElementById('abArtist');
-  const sub   = document.getElementById('abSub');
-  const dl    = document.getElementById('abDownload');
+    let tracks = [], idx = 0, albumTitle = '', albumArtist = '', albumBandcamp = '', seeking = false, raf = null;
 
-  /* ==== State ==== */
-  let tracks = [], idx = 0, albumTitle = '', albumArtist = '', albumBandcamp = '', seeking = false, raf = null;
+    const fmt = s => {
+      if(!isFinite(s)) return '0:00';
+      s = Math.max(0, Math.floor(s));
+      const m = Math.floor(s/60), sec = s%60;
+      return `${m}:${String(sec).padStart(2,'0')}`;
+    };
 
-  const fmt = s => { if(!isFinite(s)) return '0:00'; s = Math.max(0, Math.floor(s)); const m=Math.floor(s/60), sec=s%60; return `${m}:${String(sec).padStart(2,'0')}`; };
-  const openBar = () => { bar.hidden = false; requestAnimationFrame(()=>bar.classList.add('open')); };
-  const closeBar= () => { bar.classList.remove('open'); bar.classList.remove('floating-player'); document.body.classList.remove('player-open'); audio.pause(); btnPl.textContent='▶︎'; btnPl.removeAttribute('data-state'); setTimeout(()=>bar.hidden=true,250); };
+    const openBar = () => {
+      bar.hidden = false;
+      requestAnimationFrame(()=>bar.classList.add('open'));
+    };
 
-  const load = (n, autoplay=true) => {
-    idx = n;
-    const track = tracks[idx];
+    const closeBar = () => {
+      bar.classList.remove('open');
+      bar.classList.remove('floating-player');
+      document.body.classList.remove('player-open');
+      audio.pause();
+      btnPl.removeAttribute('data-state');
+      setTimeout(()=>bar.hidden=true, 250);
+    };
 
-    // **Important fix**: encode URL for spaces/commas/etc.
-    const src = encodeURI(track).replace(/#/g, '%23');
-    audio.src = src;
+    const load = (n, autoplay=true) => {
+      idx = n;
+      const track = tracks[idx];
+      const src = encodeURI(track).replace(/#/g, '%23');
+      audio.src = src;
 
-    audio.loop = (tracks.length === 1);  // singles loop
-    title.textContent = decodeURIComponent(track.split('/').pop().replace(/\.[^/.]+$/, '').replace(/[_-]/g,' '));
-    artistEl.textContent = albumArtist || '';
-    sub.textContent = `${albumTitle || 'Album'} • Track ${idx+1} of ${tracks.length}`;
-    seek.value = 0; tCur.textContent = '0:00'; tDur.textContent = '0:00';
-    if (autoplay) audio.play().then(()=>{ btnPl.textContent='⏸'; btnPl.setAttribute('data-state','playing'); }).catch(()=>{});
-  };
+      audio.loop = (tracks.length === 1);
+      title.textContent = decodeURIComponent(track.split('/').pop().replace(/\.[^/.]+$/, '').replace(/[_-]/g,' '));
+      artistEl.textContent = albumArtist || '';
+      sub.textContent = `${albumTitle || 'Album'} • Track ${idx+1} of ${tracks.length}`;
+      seek.value = 0;
+      tCur.textContent = '0:00';
+      tDur.textContent = '0:00';
 
-  const tick = () => {
-    if (!seeking && isFinite(audio.duration)) seek.value = Math.round((audio.currentTime / audio.duration || 0) * 1000);
-    tCur.textContent = fmt(audio.currentTime); tDur.textContent = fmt(audio.duration);
-    if (!audio.paused) raf = requestAnimationFrame(tick);
-  };
+      if (autoplay) {
+        audio.play().then(() => {
+          btnPl.setAttribute('data-state', 'playing');
+        }).catch(()=>{});
+      }
+    };
 
-  /* ==== Controls ==== */
-  btnX.addEventListener('click', closeBar);
-  btnPl.addEventListener('click', async () => {
-    if (audio.paused) { try{ await audio.play(); }catch{} btnPl.textContent = '||'; btnPl.setAttribute('data-state','playing'); cancelAnimationFrame(raf); raf = requestAnimationFrame(tick); }
-    else { audio.pause(); btnPl.textContent = '▶︎'; btnPl.removeAttribute('data-state'); cancelAnimationFrame(raf); }
+    const tick = () => {
+      if (!seeking && isFinite(audio.duration)) {
+        seek.value = Math.round((audio.currentTime / audio.duration || 0) * 1000);
+      }
+      tCur.textContent = fmt(audio.currentTime);
+      tDur.textContent = fmt(audio.duration);
+      if (!audio.paused) raf = requestAnimationFrame(tick);
+    };
+
+    /* controls */
+    btnX.addEventListener('click', closeBar);
+
+    btnPl.addEventListener('click', async () => {
+      if (audio.paused) {
+        try { await audio.play(); } catch {}
+        btnPl.setAttribute('data-state', 'playing');
+        cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+      } else {
+        audio.pause();
+        btnPl.removeAttribute('data-state');
+        cancelAnimationFrame(raf);
+      }
+    });
+
+    btnPr.addEventListener('click', () => {
+      if (idx > 0) load(idx - 1);
+      else audio.currentTime = 0;
+    });
+
+    btnNx.addEventListener('click', () => {
+      if (idx < tracks.length - 1) load(idx + 1);
+      else load(0, true);
+    });
+
+    audio.addEventListener('ended', () => {
+      if (tracks.length === 1) return;
+      if (idx < tracks.length - 1) load(idx + 1, true);
+      else load(0, true);
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      tDur.textContent = fmt(audio.duration);
+    });
+
+    audio.addEventListener('play', () => {
+      cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+    });
+    audio.addEventListener('pause', () => {
+      cancelAnimationFrame(raf);
+    });
+
+    audio.addEventListener('error', () => {
+      const src = audio.currentSrc || audio.src;
+      console.warn('Audio failed to load:', src, audio.error);
+      sub.textContent = '⚠ Could not load audio. Check the file path & exact casing.';
+    });
+
+    seek.addEventListener('input', () => {
+      seeking = true;
+      const p = seek.value/1000;
+      tCur.textContent = fmt(p * (audio.duration || 0));
+    });
+
+    seek.addEventListener('change', () => {
+      const p = seek.value/1000;
+      if (isFinite(audio.duration)) audio.currentTime = p * audio.duration;
+      seeking = false;
+    });
+
+    /* playlist loader */
+    window.playJsonAlbum = (aEl) => {
+      const id = aEl.getAttribute('data-playlist-el');
+      const tag = id && document.getElementById(id);
+      if (!tag) return;
+
+      let data = null;
+      try { data = JSON.parse(tag.textContent); } catch { return; }
+
+      tracks = data.tracks || [];
+      albumTitle = data.title || 'Album';
+      albumArtist = data.artist || '';
+      albumBandcamp = data.bandcamp || '';
+
+      if (dl && albumBandcamp) {
+        dl.href = albumBandcamp;
+        dl.setAttribute('target', '_blank');
+        dl.title = 'Open on Bandcamp';
+      }
+
+      const img = aEl.querySelector('img');
+      if (img && cover) {
+        cover.src = img.src;
+      }
+
+      if (!tracks.length) return;
+      openBar();
+      bar.classList.add('floating-player');
+      document.body.classList.add('player-open');
+      load(0);
+    };
+
+    /* delegated click from gallery */
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-playlist-el]');
+      if (!a) return;
+      e.preventDefault();
+      window.playJsonAlbum(a);
+    });
   });
-  btnPr.addEventListener('click', () => { if (idx > 0) load(idx - 1); else audio.currentTime = 0; });
-  btnNx.addEventListener('click', () => { if (idx < tracks.length - 1) load(idx + 1); else load(0, true); }); // loop album
-
-  audio.addEventListener('ended', () => { if (tracks.length === 1) return; if (idx < tracks.length - 1) load(idx + 1, true); else load(0, true); });
-  audio.addEventListener('loadedmetadata', () => { tDur.textContent = fmt(audio.duration); });
-  audio.addEventListener('play', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(tick); });
-  audio.addEventListener('pause', () => { cancelAnimationFrame(raf); });
-
-  // **Helpful error message if a file can't load**
-  audio.addEventListener('error', () => {
-    const src = audio.currentSrc || audio.src;
-    console.warn('Audio failed to load:', src, audio.error);
-    sub.textContent = '⚠ Could not load audio. Check the file path & exact casing on GitHub.';
-  });
-
-  seek.addEventListener('input', () => { seeking = true; const p = seek.value/1000; tCur.textContent = fmt(p * (audio.duration || 0)); });
-  seek.addEventListener('change', () => { const p = seek.value/1000; if (isFinite(audio.duration)) audio.currentTime = p * audio.duration; seeking = false; });
-
-  /* ==== Playlist loader from inline JSON ==== */
-  window.playJsonAlbum = (aEl) => {
-    const id = aEl.getAttribute('data-playlist-el');
-    const tag = id && document.getElementById(id);
-    if (!tag) return;
-    let data = null; try { data = JSON.parse(tag.textContent); } catch { return; }
-
-    tracks = data.tracks || [];
-    albumTitle = data.title || 'Album';
-    albumArtist = data.artist || '';
-    albumBandcamp = data.bandcamp || '';
-
-    if (dl && albumBandcamp) {
-      dl.href = albumBandcamp;
-      dl.removeAttribute('download');
-      dl.setAttribute('target', '_blank');
-      dl.setAttribute('aria-label', 'Open on Bandcamp');
-      dl.title = 'Open on Bandcamp';
-    }
-
-    const img = aEl.querySelector('img');
-    if (img) {
-      themeBarFromImage(img, bar);
-      const cov = document.getElementById('abCover');
-      if (cov) cov.style.backgroundImage = `url(${img.src})`;
-    }
-
-    if (!tracks.length) return;
-    openBar();
-    bar.classList.add('floating-player');
-    document.body.classList.add('player-open');
-    load(0);
-  };
-    /* delegated click */
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[data-playlist-el]');
-    if (!a) return;
-    e.preventDefault();
-    playJsonAlbum(a);
-  });
-});
-</script>
-
+  </script>
 
   <script src="js/script.js"></script>
-  
+
+  <!-- Ko-fi -->
   <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-<script>
-  kofiWidgetOverlay.draw('stillwinters', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support',
-    'floating-chat.donateButton.background-color': '#ffffff',
-    'floating-chat.donateButton.text-color': '#323842'
-  });
-</script>
+  <script>
+    kofiWidgetOverlay.draw('stillwinters', {
+      'type': 'floating-chat',
+      'floating-chat.donateButton.text': 'Support',
+      'floating-chat.donateButton.background-color': '#ffffff',
+      'floating-chat.donateButton.text-color': '#323842'
+    });
+  </script>
 </body>
 </html>
