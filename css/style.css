@@ -1,6 +1,4 @@
-/* =========================
-   Base theme / Layout
-   ========================= */
+/* basic layout */
 body{ margin:0; padding:0; font-family:timesnewroman, sans-serif; background:#E6E6FA; color:#000; }
 .container{ max-width:700px; margin:auto; padding:20px; }
 header{ text-align:center; margin-bottom:50px; }
@@ -11,28 +9,18 @@ h2{ text-align:center; margin-top:40px; margin-bottom:20px; }
 section{ margin-bottom:50px; }
 footer{ text-align:center; padding:20px 0; }
 
-html{ scroll-behavior:smooth; }
-
-/* Responsive nav spacing */
-@media (max-width:760px){
-  .container{ margin:auto; padding:10px; }
-  nav ul li{ display:block; margin:10px 0; }
-}
-
-/* =========================
-   Unified Image Sizing
-   ========================= */
+/* images */
 .bio-image img,
 .image-container img,
 .image-gallery img,
 #gallerypage img,
 #gallery img {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  box-sizing: border-box;
+  display:block;
+  margin:0 auto;
+  width:100%;
+  max-width:400px;
+  height:auto;
+  box-sizing:border-box;
 }
 
 .image-gallery{
@@ -43,32 +31,26 @@ html{ scroll-behavior:smooth; }
   justify-content:center;
   gap:5px;
 }
-.image-gallery img{
-  opacity:1;
-  transition:transform .22s ease, opacity .22s ease, filter .3s ease;
-}
+.image-gallery img{ transition:transform .22s ease, opacity .22s ease, filter .3s ease; }
 .image-gallery img:hover{ transform:scale(.975); filter:brightness(60%); }
 
-#bio{
-  display:flex; justify-content:center; align-items:center;
-  flex-direction:column; text-align:center; margin-bottom:0;
-}
-
-.image-container{ margin:auto; position:relative; text-align:center; }
+.image-container{ position:relative; }
 .overlay-text{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  color:#fff; font-size:20px; text-align:center; opacity:0;
-  transition:opacity .3s ease; pointer-events:none;
+  color:#fff; font-size:20px; text-align:center;
+  opacity:0; transition:opacity .3s ease;
+  pointer-events:none;
 }
 .image-container:hover .overlay-text{ opacity:1; }
 
-a{ color:#000; text-decoration:none; }
-a:hover{ text-decoration:underline; }
+html{ scroll-behavior:smooth; }
 
-/* =========================
-   Sticky Audio Bar (base)
-   stays at bottom when not in "floating" mode
-   ========================= */
+@media (max-width:760px){
+  .container{ padding:10px; }
+  nav ul li{ display:block; margin:10px 0; }
+}
+
+/* ===== bottom audio bar base ===== */
 .audio-bar{
   --bar-bg:#1c1c1f; --bar-text:#eee; --bar-border:#2a2a2f; --accent:#E6E6FA;
   position:fixed; left:0; right:0; bottom:0;
@@ -101,9 +83,7 @@ a:hover{ text-decoration:underline; }
   .ab-right{ justify-self:end; }
 }
 
-/* ====================================
-   Floating / centered player (desktop)
-   ==================================== */
+/* ===== floating / centered player desktop ===== */
 body.player-open { overflow: hidden; }
 
 .audio-bar.floating-player {
@@ -111,14 +91,14 @@ body.player-open { overflow: hidden; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(500px, 92vw);
+  width: min(520px, 92vw);
   background: rgba(10, 10, 12, 0.95);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 1.4rem;
   box-shadow: 0 25px 60px rgba(0,0,0,0.5);
   z-index: 9999;
-  padding: 1.6rem 1.2rem 1.4rem;
+  padding: 2rem 1.6rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -126,15 +106,21 @@ body.player-open { overflow: hidden; }
   color: #fff;
 }
 
-/* desktop cover */
+/* bigger album cover on desktop */
 .audio-bar.floating-player .ab-cover {
-  width: 240px;
+  width: 380px;
+  max-width: 85%;
   height: auto;
   display: block;
-  margin: 0 auto .75rem;
+  margin: 0 auto 1rem;
   object-fit: contain;
   border-radius: 1rem;
-  box-shadow: 0 4px 35px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 45px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.audio-bar.floating-player .ab-cover:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.65);
 }
 
 .audio-bar.floating-player .ab-left {
@@ -143,14 +129,12 @@ body.player-open { overflow: hidden; }
   justify-content: center;
   text-align: center;
 }
-
 .audio-bar.floating-player .ab-meta {
   display: flex;
   flex-direction: column;
   gap: .25rem;
   align-items: center;
 }
-
 .audio-bar.floating-player .ab-title,
 .audio-bar.floating-player .ab-artist,
 .audio-bar.floating-player .ab-sub {
@@ -164,7 +148,6 @@ body.player-open { overflow: hidden; }
   justify-content: center;
   gap: .5rem;
 }
-
 .audio-bar.floating-player .ab-seek {
   width: 78%;
 }
@@ -175,7 +158,6 @@ body.player-open { overflow: hidden; }
   justify-content: center;
 }
 
-/* floating close button */
 .audio-bar.floating-player .ab-close {
   position: absolute;
   top: 10px;
@@ -192,9 +174,7 @@ body.player-open { overflow: hidden; }
   cursor: pointer;
 }
 
-/* =========================
-   Mobile fullscreen-ish player
-   ========================= */
+/* ===== mobile fullscreen-ish ===== */
 @media (max-width: 700px) {
   .audio-bar.floating-player {
     top: 0;
@@ -212,7 +192,7 @@ body.player-open { overflow: hidden; }
   .audio-bar.floating-player .ab-cover {
     width: min(88vw, 420px);
     max-height: 46vh;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   .audio-bar.floating-player .ab-seek {
@@ -223,19 +203,17 @@ body.player-open { overflow: hidden; }
     top: 12px;
     right: 12px;
   }
+
+  /* ko-fi smaller + moved up on mobile */
+  #kofi-widget-overlay {
+    transform: scale(0.8);
+    transform-origin: bottom left;
+    bottom: 105px !important;
+    left: 12px !important;
+  }
 }
 
-/* keep Ko-fi up */
+/* desktop ko-fi still bottom-left but not over player */
 #kofi-widget-overlay {
   bottom: 90px !important;
-}
-
-/* play button icon via css (no blue emoji) */
-.ab-btn.ab-play::before {
-  content: "▸";
-  display: inline-block;
-  font-size: 1rem;
-}
-.ab-btn.ab-play[data-state="playing"]::before {
-  content: "II";
 }

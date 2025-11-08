@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // extra audio error guard (inline script does most of the work)
+  // extra audio error guard (main logic is inline)
   const audio = document.getElementById("abAudio");
   const sub   = document.getElementById("abSub");
   if (audio) {
