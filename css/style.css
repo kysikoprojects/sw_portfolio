@@ -247,3 +247,68 @@ body.player-open { overflow: hidden; }
 #kofi-widget-overlay{
   bottom:90px !important;
 }
+
+/* ===== mobile fullscreen & centered fix ===== */
+@media (max-width: 700px) {
+  .audio-bar.floating-player {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    padding: 1rem 1rem 1.25rem;
+    overflow-y: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* album cover */
+  .audio-bar.floating-player .ab-cover {
+    width: min(90vw, 430px);
+    max-height: 46vh;
+    margin-top: 2.8rem; /* room for close button */
+  }
+
+  /* meta, controls, download all centered and same width */
+  .audio-bar.floating-player .ab-left,
+  .audio-bar.floating-player .ab-center,
+  .audio-bar.floating-player .ab-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* times + slider centered */
+  .audio-bar.floating-player .ab-times {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    align-items: center;
+  }
+
+  /* THIS is the key: make the slider the same width as the rest and center it */
+  .audio-bar.floating-player .ab-seek {
+    width: min(92vw, 420px);
+    margin: 0 auto;
+  }
+
+  /* keep close button tappable */
+  .audio-bar.floating-player .ab-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10000;
+  }
+
+  /* ko-fi smaller + moved up */
+  #kofi-widget-overlay {
+    transform: scale(0.8);
+    transform-origin: bottom left;
+    bottom: 105px !important;
+    left: 12px !important;
+  }
+}
