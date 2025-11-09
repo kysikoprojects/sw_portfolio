@@ -9,10 +9,10 @@ h2{ text-align:center; margin-top:40px; margin-bottom:20px; }
 section{ margin-bottom:50px; }
 footer{ text-align:center; padding:20px 0; }
 
-/* make Still Winters heading link look like normal heading */
+/* force the still-winters heading link to look like text, mobile included */
 #still-winters h2 a{
-  color:#000;
-  text-decoration:none;
+  color:#000 !important;
+  text-decoration:none !important;
 }
 #still-winters h2 a:hover{
   text-decoration:underline;
@@ -96,28 +96,32 @@ html{ scroll-behavior:smooth; }
 body.player-open { overflow: hidden; }
 
 .audio-bar.floating-player {
+  /* override everything from base */
   position: fixed;
-  top: 50%;
+  bottom: auto;
   left: 50%;
+  right: auto;
+  top: 50%;
   transform: translate(-50%, -50%);
-  width: min(650px, 95vw);            /* bigger card */
-  background: rgba(10, 10, 12, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 1.4rem;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-  z-index: 9999;
-  padding: 2.1rem 1.8rem 1.6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+
+  width: min(700px, 96vw);
+  background: rgba(10, 10, 12, 0.97);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 1.4rem;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  padding: 2.1rem 1.6rem 1.6rem;
   color: #fff;
+  z-index: 9999;
 }
 
 /* bigger album cover on desktop */
 .audio-bar.floating-player .ab-cover {
-  width: 460px;            /* much bigger */
+  width: 520px;        /* a bit bigger than before */
   max-width: 90%;
   height: auto;
   display: block;
@@ -145,18 +149,29 @@ body.player-open { overflow: hidden; }
   color: #fff;
 }
 
-/* center controls under big art */
-.audio-bar.floating-player .ab-center,
+/* buttons under, centered */
+.audio-bar.floating-player .ab-center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  align-items: center;
+}
+.audio-bar.floating-player .ab-controls {
+  display: flex;
+  gap: .6rem;
+  justify-content: center;
+}
 .audio-bar.floating-player .ab-times {
   width: 100%;
   display: flex;
-  justify-content: center;
   gap: .5rem;
+  align-items: center;
+  justify-content: center;
 }
 .audio-bar.floating-player .ab-seek {
-  width: 88%;
+  width: 85%;
 }
-
 .audio-bar.floating-player .ab-right {
   width: 100%;
   display: flex;
@@ -193,7 +208,7 @@ body.player-open { overflow: hidden; }
     padding: 1rem 1rem 1.25rem;
     gap: 0.75rem;
     overflow-y: auto;
-    align-items: center;             /* center everything */
+    align-items: center;
     text-align: center;
   }
 
@@ -209,16 +224,19 @@ body.player-open { overflow: hidden; }
   .audio-bar.floating-player .ab-cover {
     width: min(90vw, 430px);
     max-height: 46vh;
-    margin-top: 0.5rem;
+    margin-top: 2.7rem; /* leave room for close button */
   }
 
   .audio-bar.floating-player .ab-seek {
     width: 100%;
   }
 
+  /* close button always tappable on mobile */
   .audio-bar.floating-player .ab-close {
-    top: 12px;
-    right: 12px;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10000;
   }
 
   /* ko-fi smaller + moved up on mobile */

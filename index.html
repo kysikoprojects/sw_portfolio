@@ -34,7 +34,7 @@
            STILL WINTERS SECTION
            ===================== -->
       <section id="still-winters">
-        <!-- make this link look like heading (CSS below) -->
+        <!-- link styled like heading in CSS -->
         <h2><a href="https://ffm.bio/stillwinters" target="_blank" rel="noopener">Still Winters</a></h2>
 
         <div class="image-gallery">
@@ -186,7 +186,6 @@
 
       <!-- Sticky / floating audio bar -->
       <div id="audioBar" class="audio-bar" aria-live="polite" hidden>
-        <!-- album art -->
         <img class="ab-cover" id="abCover" alt="Album cover" />
 
         <div class="ab-left">
@@ -201,7 +200,6 @@
         <div class="ab-center">
           <div class="ab-controls">
             <button class="ab-btn ab-prev" aria-label="Previous">⟨</button>
-            <!-- empty: JS will put ▸ / ❚❚ -->
             <button class="ab-btn ab-play" aria-label="Play/Pause"></button>
             <button class="ab-btn ab-next" aria-label="Next">⟩</button>
           </div>
@@ -254,7 +252,7 @@
 
     let tracks = [], idx = 0, albumTitle = '', albumArtist = '', albumBandcamp = '', seeking = false, raf = null;
 
-    // start with play icon so button isn't empty
+    // show play icon so it’s never empty
     btnPl.textContent = '▸';
 
     const fmt = s => {
@@ -414,7 +412,6 @@
   });
   </script>
 
-  <!-- external script (smooth scroll + extra audio error) -->
   <script src="js/script.js"></script>
 
   <!-- Ko-fi -->
