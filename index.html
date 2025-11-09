@@ -34,7 +34,6 @@
            STILL WINTERS SECTION
            ===================== -->
       <section id="still-winters">
-        <!-- link styled like heading in CSS -->
         <h2><a href="https://ffm.bio/stillwinters" target="_blank" rel="noopener">Still Winters</a></h2>
 
         <div class="image-gallery">
@@ -184,7 +183,7 @@
       }
       </script>
 
-      <!-- Sticky / floating audio bar -->
+      <!-- Floating audio player -->
       <div id="audioBar" class="audio-bar" aria-live="polite" hidden>
         <img class="ab-cover" id="abCover" alt="Album cover" />
 
@@ -252,7 +251,7 @@
 
     let tracks = [], idx = 0, albumTitle = '', albumArtist = '', albumBandcamp = '', seeking = false, raf = null;
 
-    // show play icon so it’s never empty
+    // make sure it never looks empty
     btnPl.textContent = '▸';
 
     const fmt = s => {
@@ -308,7 +307,6 @@
       if (!audio.paused) raf = requestAnimationFrame(tick);
     };
 
-    /* controls */
     btnX.addEventListener('click', closeBar);
 
     btnPl.addEventListener('click', async () => {
@@ -370,7 +368,7 @@
       seeking = false;
     });
 
-    /* Playlist loader */
+    // playlist loader
     window.playJsonAlbum = (aEl) => {
       const id = aEl.getAttribute('data-playlist-el');
       const tag = id && document.getElementById(id);
@@ -387,13 +385,10 @@
       if (dl && albumBandcamp) {
         dl.href = albumBandcamp;
         dl.setAttribute('target', '_blank');
-        dl.title = 'Open on Bandcamp';
       }
 
       const img = aEl.querySelector('img');
-      if (img && cover) {
-        cover.src = img.src;
-      }
+      if (img && cover) cover.src = img.src;
 
       if (!tracks.length) return;
       openBar();
@@ -402,7 +397,6 @@
       load(0);
     };
 
-    /* delegated click */
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-playlist-el]');
       if (!a) return;

@@ -9,8 +9,10 @@ h2{ text-align:center; margin-top:40px; margin-bottom:20px; }
 section{ margin-bottom:50px; }
 footer{ text-align:center; padding:20px 0; }
 
-/* force the still-winters heading link to look like text, mobile included */
-#still-winters h2 a{
+/* force this heading to stay black and not underlined on mobile */
+#still-winters h2 a,
+#still-winters h2 a:link,
+#still-winters h2 a:visited{
   color:#000 !important;
   text-decoration:none !important;
 }
@@ -18,7 +20,7 @@ footer{ text-align:center; padding:20px 0; }
   text-decoration:underline;
 }
 
-/* images */
+/* gallery images */
 .bio-image img,
 .image-container img,
 .image-gallery img,
@@ -59,7 +61,7 @@ html{ scroll-behavior:smooth; }
   nav ul li{ display:block; margin:10px 0; }
 }
 
-/* ===== bottom audio bar base ===== */
+/* ===== base audio bar (hidden most of the time in floating mode) ===== */
 .audio-bar{
   --bar-bg:#1c1c1f; --bar-text:#eee; --bar-border:#2a2a2f; --accent:#E6E6FA;
   position:fixed; left:0; right:0; bottom:0;
@@ -92,163 +94,156 @@ html{ scroll-behavior:smooth; }
   .ab-right{ justify-self:end; }
 }
 
-/* ===== floating / centered player desktop ===== */
+/* ===== floating player ===== */
 body.player-open { overflow: hidden; }
 
-.audio-bar.floating-player {
-  /* override everything from base */
-  position: fixed;
-  bottom: auto;
-  left: 50%;
-  right: auto;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-
-  width: min(700px, 96vw);
-  background: rgba(10, 10, 12, 0.97);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 1.4rem;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-  padding: 2.1rem 1.6rem 1.6rem;
-  color: #fff;
-  z-index: 9999;
+.audio-bar.floating-player{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:min(720px, 96vw);
+  background:rgba(10,10,12,0.97);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:1.5rem;
+  box-shadow:0 25px 60px rgba(0,0,0,0.5);
+  padding:2rem 1.6rem 1.6rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  align-items:center;
+  color:#fff;
+  /* override the base grid: */
+  grid-template-columns:none;
+  bottom:auto;
 }
 
-/* bigger album cover on desktop */
-.audio-bar.floating-player .ab-cover {
-  width: 520px;        /* a bit bigger than before */
-  max-width: 90%;
-  height: auto;
-  display: block;
-  margin: 0 auto 1.1rem;
-  object-fit: contain;
-  border-radius: 1rem;
-  box-shadow: 0 8px 45px rgba(0, 0, 0, 0.5);
+/* every direct child full width so background covers everything */
+.audio-bar.floating-player > *{
+  width:100%;
 }
 
-.audio-bar.floating-player .ab-left {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+/* big cover */
+.audio-bar.floating-player .ab-cover{
+  width:540px;
+  max-width:92%;
+  margin:0 auto 1rem;
+  display:block;
+  object-fit:contain;
+  border-radius:1.1rem;
+  box-shadow:0 8px 45px rgba(0,0,0,0.6);
 }
-.audio-bar.floating-player .ab-meta {
-  display: flex;
-  flex-direction: column;
-  gap: .25rem;
-  align-items: center;
+
+/* meta centered */
+.audio-bar.floating-player .ab-left{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.4rem;
+}
+.audio-bar.floating-player .ab-meta{
+  text-align:center;
 }
 .audio-bar.floating-player .ab-title,
 .audio-bar.floating-player .ab-artist,
-.audio-bar.floating-player .ab-sub {
-  color: #fff;
+.audio-bar.floating-player .ab-sub{
+  color:#fff;
 }
 
-/* buttons under, centered */
-.audio-bar.floating-player .ab-center {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  align-items: center;
+/* buttons underneath, centered */
+.audio-bar.floating-player .ab-center{
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+  align-items:center;
 }
-.audio-bar.floating-player .ab-controls {
-  display: flex;
-  gap: .6rem;
-  justify-content: center;
+.audio-bar.floating-player .ab-controls{
+  display:flex;
+  gap:.6rem;
+  justify-content:center;
 }
-.audio-bar.floating-player .ab-times {
-  width: 100%;
-  display: flex;
-  gap: .5rem;
-  align-items: center;
-  justify-content: center;
+.audio-bar.floating-player .ab-times{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  justify-content:center;
+  width:100%;
 }
-.audio-bar.floating-player .ab-seek {
-  width: 85%;
+.audio-bar.floating-player .ab-seek{
+  width:85%;
 }
-.audio-bar.floating-player .ab-right {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.audio-bar.floating-player .ab-right{
+  display:flex;
+  justify-content:center;
 }
 
-/* floating close */
-.audio-bar.floating-player .ab-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 999px;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  cursor: pointer;
+/* floating close button */
+.audio-bar.floating-player .ab-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:999px;
+  width:28px;
+  height:28px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  cursor:pointer;
 }
 
-/* ===== mobile fullscreen-ish & centered ===== */
-@media (max-width: 700px) {
-  .audio-bar.floating-player {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-    padding: 1rem 1rem 1.25rem;
-    gap: 0.75rem;
-    overflow-y: auto;
-    align-items: center;
-    text-align: center;
+/* ===== mobile fullscreen ===== */
+@media (max-width:700px){
+  .audio-bar.floating-player{
+    top:0;
+    left:0;
+    transform:none;
+    width:100vw;
+    height:100vh;
+    max-height:100vh;
+    border-radius:0;
+    padding:1rem 1rem 1.25rem;
+    overflow-y:auto;
   }
 
-  .audio-bar.floating-player .ab-left,
-  .audio-bar.floating-player .ab-center,
-  .audio-bar.floating-player .ab-right {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .audio-bar.floating-player .ab-cover{
+    width:min(90vw, 430px);
+    max-height:46vh;
+    margin-top:2.8rem; /* room for close button */
   }
 
-  .audio-bar.floating-player .ab-cover {
-    width: min(90vw, 430px);
-    max-height: 46vh;
-    margin-top: 2.7rem; /* leave room for close button */
+  .audio-bar.floating-player .ab-center{
+    width:100%;
   }
 
-  .audio-bar.floating-player .ab-seek {
-    width: 100%;
+  .audio-bar.floating-player .ab-times{
+    flex-direction:column;
+    align-items:center;
   }
 
-  /* close button always tappable on mobile */
-  .audio-bar.floating-player .ab-close {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 10000;
+  .audio-bar.floating-player .ab-seek{
+    width:100%;
   }
 
-  /* ko-fi smaller + moved up on mobile */
-  #kofi-widget-overlay {
-    transform: scale(0.8);
-    transform-origin: bottom left;
-    bottom: 105px !important;
-    left: 12px !important;
+  .audio-bar.floating-player .ab-close{
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:10000;
+  }
+
+  #kofi-widget-overlay{
+    transform:scale(.8);
+    transform-origin:bottom left;
+    bottom:105px !important;
+    left:12px !important;
   }
 }
 
-/* desktop ko-fi still bottom-left but not over player */
-#kofi-widget-overlay {
-  bottom: 90px !important;
+/* desktop ko-fi tweak */
+#kofi-widget-overlay{
+  bottom:90px !important;
 }

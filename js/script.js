@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // extra audio error guard (main player is inline)
+  // extra audio error guard
   const audio = document.getElementById("abAudio");
   const sub   = document.getElementById("abSub");
   if (audio) {
