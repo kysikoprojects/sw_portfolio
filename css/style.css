@@ -9,6 +9,15 @@ h2{ text-align:center; margin-top:40px; margin-bottom:20px; }
 section{ margin-bottom:50px; }
 footer{ text-align:center; padding:20px 0; }
 
+/* make Still Winters heading link look like normal heading */
+#still-winters h2 a{
+  color:#000;
+  text-decoration:none;
+}
+#still-winters h2 a:hover{
+  text-decoration:underline;
+}
+
 /* images */
 .bio-image img,
 .image-container img,
@@ -91,14 +100,14 @@ body.player-open { overflow: hidden; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(520px, 92vw);
+  width: min(650px, 95vw);            /* bigger card */
   background: rgba(10, 10, 12, 0.95);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 1.4rem;
   box-shadow: 0 25px 60px rgba(0,0,0,0.5);
   z-index: 9999;
-  padding: 2rem 1.6rem 1.5rem;
+  padding: 2.1rem 1.8rem 1.6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,19 +117,14 @@ body.player-open { overflow: hidden; }
 
 /* bigger album cover on desktop */
 .audio-bar.floating-player .ab-cover {
-  width: 380px;
-  max-width: 85%;
+  width: 460px;            /* much bigger */
+  max-width: 90%;
   height: auto;
   display: block;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.1rem;
   object-fit: contain;
   border-radius: 1rem;
   box-shadow: 0 8px 45px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.audio-bar.floating-player .ab-cover:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.65);
 }
 
 .audio-bar.floating-player .ab-left {
@@ -141,6 +145,7 @@ body.player-open { overflow: hidden; }
   color: #fff;
 }
 
+/* center controls under big art */
 .audio-bar.floating-player .ab-center,
 .audio-bar.floating-player .ab-times {
   width: 100%;
@@ -149,7 +154,7 @@ body.player-open { overflow: hidden; }
   gap: .5rem;
 }
 .audio-bar.floating-player .ab-seek {
-  width: 78%;
+  width: 88%;
 }
 
 .audio-bar.floating-player .ab-right {
@@ -158,6 +163,7 @@ body.player-open { overflow: hidden; }
   justify-content: center;
 }
 
+/* floating close */
 .audio-bar.floating-player .ab-close {
   position: absolute;
   top: 10px;
@@ -174,7 +180,7 @@ body.player-open { overflow: hidden; }
   cursor: pointer;
 }
 
-/* ===== mobile fullscreen-ish ===== */
+/* ===== mobile fullscreen-ish & centered ===== */
 @media (max-width: 700px) {
   .audio-bar.floating-player {
     top: 0;
@@ -187,10 +193,21 @@ body.player-open { overflow: hidden; }
     padding: 1rem 1rem 1.25rem;
     gap: 0.75rem;
     overflow-y: auto;
+    align-items: center;             /* center everything */
+    text-align: center;
+  }
+
+  .audio-bar.floating-player .ab-left,
+  .audio-bar.floating-player .ab-center,
+  .audio-bar.floating-player .ab-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .audio-bar.floating-player .ab-cover {
-    width: min(88vw, 420px);
+    width: min(90vw, 430px);
     max-height: 46vh;
     margin-top: 0.5rem;
   }
