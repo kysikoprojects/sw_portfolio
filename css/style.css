@@ -312,3 +312,74 @@ body.player-open { overflow: hidden; }
     left: 12px !important;
   }
 }
+
+/* ===== mobile fullscreen & centered fix ===== */
+@media (max-width: 700px) {
+  .audio-bar.floating-player {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    padding: 1rem 1rem 1.25rem;
+    overflow-y: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .audio-bar.floating-player .ab-cover {
+    width: min(90vw, 430px);
+    max-height: 46vh;
+    margin-top: 2.8rem; /* room for close button */
+  }
+
+  /* center these sections */
+  .audio-bar.floating-player .ab-left,
+  .audio-bar.floating-player .ab-center,
+  .audio-bar.floating-player .ab-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* put the time+slider in a fixed-width box */
+  .audio-bar.floating-player .ab-times {
+    width: 100%;
+    max-width: 420px;     /* <— keeps slider from going full screen */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    align-items: center;
+  }
+
+  .audio-bar.floating-player .ab-seek {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  /* just in case Safari is extra */
+  .audio-bar.floating-player input[type="range"] {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  /* close button stays tappable */
+  .audio-bar.floating-player .ab-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10000;
+  }
+
+  /* smaller ko-fi + higher so it doesn't overlap */
+  #kofi-widget-overlay {
+    transform: scale(0.8);
+    transform-origin: bottom left;
+    bottom: 105px !important;
+    left: 12px !important;
+  }
+}
