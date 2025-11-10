@@ -61,7 +61,7 @@ html{ scroll-behavior:smooth; }
   nav ul li{ display:block; margin:10px 0; }
 }
 
-/* ===== base audio bar (hidden most of the time in floating mode) ===== */
+/* ===== base audio bar ===== */
 .audio-bar{
   --bar-bg:#1c1c1f; --bar-text:#eee; --bar-border:#2a2a2f; --accent:#E6E6FA;
   position:fixed; left:0; right:0; bottom:0;
@@ -94,7 +94,7 @@ html{ scroll-behavior:smooth; }
   .ab-right{ justify-self:end; }
 }
 
-/* ===== floating player ===== */
+/* ===== floating player (desktop) ===== */
 body.player-open { overflow: hidden; }
 
 .audio-bar.floating-player{
@@ -114,28 +114,34 @@ body.player-open { overflow: hidden; }
   gap:1rem;
   align-items:center;
   color:#fff;
-  /* override the base grid: */
   grid-template-columns:none;
   bottom:auto;
+
+  /* smoother open/close */
+  opacity:0;
+  transition: opacity 240ms ease, transform 240ms ease;
+  transform:translate(-50%, -50%) scale(.985);
+}
+.audio-bar.floating-player.open{
+  opacity:1;
+  transform:translate(-50%, -50%) scale(1);
 }
 
-/* every direct child full width so background covers everything */
-.audio-bar.floating-player > *{
-  width:100%;
-}
+/* children full width */
+.audio-bar.floating-player > *{ width:100%; }
 
-/* big cover */
+/* big cover, now square */
 .audio-bar.floating-player .ab-cover{
   width:540px;
   max-width:92%;
   margin:0 auto 1rem;
   display:block;
   object-fit:contain;
-  border-radius:1.1rem;
+  border-radius:0; /* remove rounded edges here */
   box-shadow:0 8px 45px rgba(0,0,0,0.6);
 }
 
-/* meta centered */
+/* center meta */
 .audio-bar.floating-player .ab-left{
   display:flex;
   flex-direction:column;
@@ -145,13 +151,8 @@ body.player-open { overflow: hidden; }
 .audio-bar.floating-player .ab-meta{
   text-align:center;
 }
-.audio-bar.floating-player .ab-title,
-.audio-bar.floating-player .ab-artist,
-.audio-bar.floating-player .ab-sub{
-  color:#fff;
-}
 
-/* buttons underneath, centered */
+/* center controls */
 .audio-bar.floating-player .ab-center{
   display:flex;
   flex-direction:column;
@@ -178,7 +179,7 @@ body.player-open { overflow: hidden; }
   justify-content:center;
 }
 
-/* floating close button */
+/* bigger close */
 .audio-bar.floating-player .ab-close{
   position:absolute;
   top:10px;
@@ -186,213 +187,24 @@ body.player-open { overflow: hidden; }
   background:rgba(0,0,0,0.3);
   border:1px solid rgba(255,255,255,0.08);
   border-radius:999px;
-  width:28px;
-  height:28px;
+  width:34px;
+  height:34px;
   display:flex;
   justify-content:center;
   align-items:center;
   color:#fff;
   cursor:pointer;
+  font-size:1.1rem;
 }
 
-/* ===== mobile fullscreen ===== */
-@media (max-width:700px){
-  .audio-bar.floating-player{
-    top:0;
-    left:0;
-    transform:none;
-    width:100vw;
-    height:100vh;
-    max-height:100vh;
-    border-radius:0;
-    padding:1rem 1rem 1.25rem;
-    overflow-y:auto;
-  }
-
-  .audio-bar.floating-player .ab-cover{
-    width:min(90vw, 430px);
-    max-height:46vh;
-    margin-top:2.8rem; /* room for close button */
-  }
-
-  .audio-bar.floating-player .ab-center{
-    width:100%;
-  }
-
-  .audio-bar.floating-player .ab-times{
-    flex-direction:column;
-    align-items:center;
-  }
-
-  .audio-bar.floating-player .ab-seek{
-    width:100%;
-  }
-
-  .audio-bar.floating-player .ab-close{
-    position:fixed;
-    top:16px;
-    right:16px;
-    z-index:10000;
-  }
-
-  #kofi-widget-overlay{
-    transform:scale(.8);
-    transform-origin:bottom left;
-    bottom:105px !important;
-    left:12px !important;
-  }
-}
-
-/* desktop ko-fi tweak */
-#kofi-widget-overlay{
-  bottom:90px !important;
-}
-
-/* ===== mobile fullscreen & centered fix ===== */
+/* ===== mobile: use centered card we added ===== */
 @media (max-width: 700px) {
-  .audio-bar.floating-player {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-    padding: 1rem 1rem 1.25rem;
-    overflow-y: auto;
-    align-items: center;
-    text-align: center;
-  }
-
-  /* album cover */
-  .audio-bar.floating-player .ab-cover {
-    width: min(90vw, 430px);
-    max-height: 46vh;
-    margin-top: 2.8rem; /* room for close button */
-  }
-
-  /* meta, controls, download all centered and same width */
-  .audio-bar.floating-player .ab-left,
-  .audio-bar.floating-player .ab-center,
-  .audio-bar.floating-player .ab-right {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* times + slider centered */
-  .audio-bar.floating-player .ab-times {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: .4rem;
-    align-items: center;
-  }
-
-  /* THIS is the key: make the slider the same width as the rest and center it */
-  .audio-bar.floating-player .ab-seek {
-    width: min(92vw, 420px);
-    margin: 0 auto;
-  }
-
-  /* keep close button tappable */
-  .audio-bar.floating-player .ab-close {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 10000;
-  }
-
-  /* ko-fi smaller + moved up */
-  #kofi-widget-overlay {
-    transform: scale(0.8);
-    transform-origin: bottom left;
-    bottom: 105px !important;
-    left: 12px !important;
-  }
-}
-
-/* ===== mobile fullscreen & centered fix ===== */
-@media (max-width: 700px) {
-  .audio-bar.floating-player {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-    padding: 1rem 1rem 1.25rem;
-    overflow-y: auto;
-    align-items: center;
-    text-align: center;
-  }
-
-  .audio-bar.floating-player .ab-cover {
-    width: min(90vw, 430px);
-    max-height: 46vh;
-    margin-top: 2.8rem; /* room for close button */
-  }
-
-  /* center these sections */
-  .audio-bar.floating-player .ab-left,
-  .audio-bar.floating-player .ab-center,
-  .audio-bar.floating-player .ab-right {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* put the time+slider in a fixed-width box */
-  .audio-bar.floating-player .ab-times {
-    width: 100%;
-    max-width: 420px;     /* <— keeps slider from going full screen */
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: .4rem;
-    align-items: center;
-  }
-
-  .audio-bar.floating-player .ab-seek {
-    width: 100%;
-    max-width: 420px;
-  }
-
-  /* just in case Safari is extra */
-  .audio-bar.floating-player input[type="range"] {
-    width: 100%;
-    max-width: 420px;
-  }
-
-  /* close button stays tappable */
-  .audio-bar.floating-player .ab-close {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 10000;
-  }
-
-  /* smaller ko-fi + higher so it doesn't overlap */
-  #kofi-widget-overlay {
-    transform: scale(0.8);
-    transform-origin: bottom left;
-    bottom: 105px !important;
-    left: 12px !important;
-  }
-}
-
-/* ===== mobile: centered, safer width ===== */
-@media (max-width: 700px) {
-  /* make the player a centered card, not full-screen */
   .audio-bar.floating-player {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(92vw, 520px);   /* safe width for most phones */
+    width: min(92vw, 520px);
     max-height: 92vh;
     height: auto;
     border-radius: 1.1rem;
@@ -405,17 +217,15 @@ body.player-open { overflow: hidden; }
     text-align: center;
   }
 
-  /* cover just fills that card */
   .audio-bar.floating-player .ab-cover {
     width: 100%;
     height: auto;
     max-height: 42vh;
     object-fit: contain;
-    margin-top: 2.2rem; /* room for close button */
-    border-radius: 1rem;
+    margin-top: 2.2rem;
+    border-radius: 0; /* square on mobile too */
   }
 
-  /* center sections and make them the card width */
   .audio-bar.floating-player .ab-left,
   .audio-bar.floating-player .ab-center,
   .audio-bar.floating-player .ab-right {
@@ -425,10 +235,9 @@ body.player-open { overflow: hidden; }
     align-items: center;
   }
 
-  /* time/slider area is locked to card width */
   .audio-bar.floating-player .ab-times {
     width: 100%;
-    max-width: 360px;         /* <-- smaller so it always fits */
+    max-width: 360px;
     margin: 0.35rem auto 0;
     display: flex;
     flex-direction: column;
@@ -442,18 +251,37 @@ body.player-open { overflow: hidden; }
     max-width: 360px;
   }
 
-  /* close button stays on the card */
   .audio-bar.floating-player .ab-close {
     position: absolute;
     top: 10px;
     right: 10px;
   }
 
-  /* ko-fi smaller + higher so it doesn't overlap */
   #kofi-widget-overlay {
     transform: scale(0.8);
     transform-origin: bottom left;
     bottom: 95px !important;
     left: 12px !important;
   }
+}
+
+/* backdrop behind player */
+.player-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 9990;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+.player-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* desktop ko-fi tweak */
+#kofi-widget-overlay{
+  bottom:90px !important;
 }

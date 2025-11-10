@@ -183,6 +183,9 @@
       }
       </script>
 
+      <!-- backdrop for floating player -->
+      <div id="playerOverlay" class="player-overlay" hidden></div>
+
       <!-- Floating audio player -->
       <div id="audioBar" class="audio-bar" aria-live="polite" hidden>
         <img class="ab-cover" id="abCover" alt="Album cover" />
@@ -234,24 +237,25 @@
   <!-- inline player logic -->
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const bar   = document.getElementById('audioBar');
-    const audio = document.getElementById('abAudio');
-    const btnX  = bar.querySelector('.ab-close');
-    const btnPl = bar.querySelector('.ab-play');
-    const btnPr = bar.querySelector('.ab-prev');
-    const btnNx = bar.querySelector('.ab-next');
-    const seek  = document.getElementById('abSeek');
-    const tCur  = document.getElementById('abCurrent');
-    const tDur  = document.getElementById('abDuration');
-    const title = document.getElementById('abTitle');
-    const artistEl = document.getElementById('abArtist');
-    const sub   = document.getElementById('abSub');
-    const dl    = document.getElementById('abDownload');
-    const cover = document.getElementById('abCover');
+    const bar     = document.getElementById('audioBar');
+    const overlay = document.getElementById('playerOverlay');
+    const audio   = document.getElementById('abAudio');
+    const btnX    = bar.querySelector('.ab-close');
+    const btnPl   = bar.querySelector('.ab-play');
+    const btnPr   = bar.querySelector('.ab-prev');
+    const btnNx   = bar.querySelector('.ab-next');
+    const seek    = document.getElementById('abSeek');
+    const tCur    = document.getElementById('abCurrent');
+    const tDur    = document.getElementById('abDuration');
+    const title   = document.getElementById('abTitle');
+    const artistEl= document.getElementById('abArtist');
+    const sub     = document.getElementById('abSub');
+    const dl      = document.getElementById('abDownload');
+    const cover   = document.getElementById('abCover');
 
     let tracks = [], idx = 0, albumTitle = '', albumArtist = '', albumBandcamp = '', seeking = false, raf = null;
 
-    // make sure it never looks empty
+    // make sure play button isn't empty
     btnPl.textContent = '▸';
 
     const fmt = s => {
@@ -261,22 +265,38 @@
       return `${m}:${String(sec).padStart(2,'0')}`;
     };
 
-    const openBar = () => {
+    function openBarFloating(){
       bar.hidden = false;
-      requestAnimationFrame(()=>bar.classList.add('open'));
-    };
+      // show overlay
+      if (overlay) {
+        overlay.hidden = false;
+        requestAnimationFrame(() => overlay.classList.add('open'));
+      }
+      // show player
+      requestAnimationFrame(() => {
+        bar.classList.add('floating-player');
+        bar.classList.add('open');
+        document.body.classList.add('player-open');
+      });
+    }
 
-    const closeBar = () => {
+    function closeBar(){
       bar.classList.remove('open');
       bar.classList.remove('floating-player');
       document.body.classList.remove('player-open');
       audio.pause();
       btnPl.textContent = '▸';
       btnPl.removeAttribute('data-state');
-      setTimeout(()=>bar.hidden=true, 250);
-    };
 
-    const load = (n, autoplay = true) => {
+      if (overlay) {
+        overlay.classList.remove('open');
+        setTimeout(() => { overlay.hidden = true; }, 250);
+      }
+
+      setTimeout(()=>bar.hidden=true, 250);
+    }
+
+    function loadTrack(n, autoplay = true){
       idx = n;
       const track = tracks[idx];
       const src = encodeURI(track).replace(/#/g, '%23');
@@ -293,10 +313,10 @@
       if (autoplay) {
         audio.play().then(() => {
           btnPl.textContent = '❚❚';
-          btnPl.setAttribute('data-state', 'playing');
+          btnPl.setAttribute('data-state','playing');
         }).catch(()=>{});
       }
-    };
+    }
 
     const tick = () => {
       if (!seeking && isFinite(audio.duration)) {
@@ -309,11 +329,16 @@
 
     btnX.addEventListener('click', closeBar);
 
+    // click outside to close
+    if (overlay) {
+      overlay.addEventListener('click', closeBar);
+    }
+
     btnPl.addEventListener('click', async () => {
       if (audio.paused) {
         try { await audio.play(); } catch {}
         btnPl.textContent = '❚❚';
-        btnPl.setAttribute('data-state', 'playing');
+        btnPl.setAttribute('data-state','playing');
         cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
       } else {
         audio.pause();
@@ -324,19 +349,19 @@
     });
 
     btnPr.addEventListener('click', () => {
-      if (idx > 0) load(idx - 1);
+      if (idx > 0) loadTrack(idx - 1);
       else audio.currentTime = 0;
     });
 
     btnNx.addEventListener('click', () => {
-      if (idx < tracks.length - 1) load(idx + 1);
-      else load(0, true);
+      if (idx < tracks.length - 1) loadTrack(idx + 1);
+      else loadTrack(0, true);
     });
 
     audio.addEventListener('ended', () => {
       if (tracks.length === 1) return;
-      if (idx < tracks.length - 1) load(idx + 1, true);
-      else load(0, true);
+      if (idx < tracks.length - 1) loadTrack(idx + 1, true);
+      else loadTrack(0, true);
     });
 
     audio.addEventListener('loadedmetadata', () => {
@@ -346,6 +371,7 @@
     audio.addEventListener('play', () => {
       cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
     });
+
     audio.addEventListener('pause', () => {
       cancelAnimationFrame(raf);
     });
@@ -384,19 +410,20 @@
 
       if (dl && albumBandcamp) {
         dl.href = albumBandcamp;
-        dl.setAttribute('target', '_blank');
+        dl.setAttribute('target','_blank');
+        dl.title = 'Open on Bandcamp';
       }
 
       const img = aEl.querySelector('img');
       if (img && cover) cover.src = img.src;
 
       if (!tracks.length) return;
-      openBar();
-      bar.classList.add('floating-player');
-      document.body.classList.add('player-open');
-      load(0);
+
+      openBarFloating();
+      loadTrack(0);
     };
 
+    // delegated click
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-playlist-el]');
       if (!a) return;
