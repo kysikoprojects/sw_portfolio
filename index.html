@@ -68,6 +68,15 @@
            =========== -->
       <section id="kysiko">
         <h2>Kysiko</h2>
+		
+        <div class="image-gallery">
+          <div class="image-container">
+            <a href="https://open.spotify.com/album/0yksOxzVMseIcZSRPEW4Wl">
+              <img src="images/kysiko/OWAD_cover.jpg" alt="Oh, What A Distance"/>
+              <div class="overlay-text">Elijah Blond <br/><br/>"Oh, What A Distance"</div>
+            </a>
+          </div>
+		  
         <div class="image-gallery">
           <div class="image-container">
             <a href="https://open.spotify.com/album/2FTG9OQSMFITzGTJQhlUjh?si=9_ZLDOtDQ1uu-Q28ebOIMg">
@@ -445,5 +454,49 @@
       'floating-chat.donateButton.text-color': '#323842'
     });
   </script>
+
+<script>
+  // watch for Ko-fi and force size/position
+  const tweakKofi = (root = document) => {
+    const nodes = root.querySelectorAll('[id*="kofi-widget-overlay"], [class*="kofi-widget-overlay"]');
+    nodes.forEach(el => {
+      // position it
+      el.style.setProperty('bottom', '90px', 'important');
+      el.style.setProperty('left', '14px', 'important');
+      el.style.setProperty('right', 'auto', 'important');
+
+      // force a smaller box
+      el.style.setProperty('width', '40px', 'important');
+      el.style.setProperty('height', '40px', 'important');
+
+      // if it's an iframe or has iframe inside, shrink that too
+      const iframe = el.querySelector('iframe');
+      if (iframe) {
+        iframe.style.setProperty('width', '40px', 'important');
+        iframe.style.setProperty('height', '40px', 'important');
+      }
+    });
+  };
+
+  // run now
+  tweakKofi();
+
+  // and keep watching for when Ko-fi injects/updates
+  const mo = new MutationObserver(muts => {
+    muts.forEach(m => {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType === 1) {
+          tweakKofi(node);
+        }
+      });
+    });
+  });
+
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+</script>
+
+
+
+
 </body>
 </html>
